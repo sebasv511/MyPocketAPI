@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPocketAPI.Data;
-using MyPocketAPI.Models;
+using MyPocketAPI.Data.Enumerations;
+using MyPocketAPI.Data.Models;
 
 namespace MyPocketAPI.Controllers
 {

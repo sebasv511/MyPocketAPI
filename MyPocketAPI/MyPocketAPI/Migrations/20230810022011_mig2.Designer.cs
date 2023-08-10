@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPocketAPI.Data;
 
@@ -11,9 +12,11 @@ using MyPocketAPI.Data;
 namespace MyPocketAPI.Migrations
 {
     [DbContext(typeof(MyPocketDbContext))]
-    partial class MyPocketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230810022011_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace MyPocketAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("MyPocketAPI.Data.Models.UserPassword", b =>
@@ -69,30 +72,22 @@ namespace MyPocketAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdUser");
 
-                    b.ToTable("UsersPassword");
+                    b.ToTable("UserPassword", (string)null);
                 });
 
             modelBuilder.Entity("MyPocketAPI.Data.Models.UserPassword", b =>
                 {
                     b.HasOne("MyPocketAPI.Data.Models.User", "User")
-                        .WithMany("Passwords")
+                        .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyPocketAPI.Data.Models.User", b =>
-                {
-                    b.Navigation("Passwords");
                 });
 #pragma warning restore 612, 618
         }

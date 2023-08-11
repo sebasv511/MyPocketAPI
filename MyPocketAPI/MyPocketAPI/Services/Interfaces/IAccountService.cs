@@ -1,6 +1,6 @@
 ﻿using MyPocketAPI.Data.Models;
 
-namespace MyPocketAPI.Services
+namespace MyPocketAPI.Services.Interfaces
 {
     public interface IAccountService
     {

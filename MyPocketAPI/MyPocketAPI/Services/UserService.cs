@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyPocketAPI.Data;
 using MyPocketAPI.Data.Models;
+using MyPocketAPI.Services.Interfaces;
 using System.Runtime.InteropServices;
 
 namespace MyPocketAPI.Services
@@ -8,8 +9,6 @@ namespace MyPocketAPI.Services
     public class UserService : IUserService
     {
         private readonly MyPocketDbContext _context;
-
-
         public UserService(MyPocketDbContext context)
         {
             _context = context;

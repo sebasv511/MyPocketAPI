@@ -17,8 +17,8 @@ namespace MyPocketAPI.Data
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<UserPassword> UserPasswords { get; set; }
         public DbSet<Pocket> Pocket { get; set; }
-        public DbSet<PocketDetail> PocketDetail { get; set; }
-        public DbSet<Month> Month { get; set; }
+        public DbSet<PocketDetail> PocketsDetail { get; set; }
+        public DbSet<Month> Months { get; set; }
         public DbSet<MonthDetail> MonthDetail { get; set; }
         public DbSet<Movement> Movements { get; set; }
 
@@ -27,6 +27,8 @@ namespace MyPocketAPI.Data
             modelBuilder.Entity<User>().ToTable(nameof(User));
             modelBuilder.Entity<UserPassword>().ToTable(nameof(UserPassword));
             modelBuilder.Entity<Movement>().ToTable(nameof(Movement));
+            modelBuilder.Entity<PocketDetail>().ToTable(nameof(PocketDetail));
+            modelBuilder.Entity<Month>().ToTable(nameof(Month));
 
             base.OnModelCreating(modelBuilder);
         }

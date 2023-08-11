@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPocketAPI.Data.Dto;
-using MyPocketAPI.Services;
+using MyPocketAPI.Services.Interfaces;
 
 namespace MyPocketAPI.Controllers
 {

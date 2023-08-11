@@ -21,7 +21,7 @@ namespace MyPocketAPI.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                new Claim("Id", user.Id.ToString()),                
+                new Claim("Id", user.UserId.ToString()),                
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
              }),
                 Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_configuration["Jwt:ExpirationMinutes"])),

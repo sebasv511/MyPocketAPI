@@ -4,6 +4,6 @@ namespace MyPocketAPI.Services
 {
     public interface IUserService
     {
-        Task<User>? GetUserAsync(string email, string phone, string password);
+        Task<User>? GetUserAsync(string login, string password);
     }
 }

@@ -6,16 +6,18 @@ namespace MyPocketAPI.Data.Models
 {
     public class UserPassword
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }        
+        public long UserPasswordId { get; set; }        
         [Required]
         public string Password { get; set; }
         [Required]
         public DateTime LastChangeDate { get; set; }
         [Required]
         public PasswordState State { get; set; }
-        public long IdUser { get; set; }
-        [ForeignKey("IdUser")]
+        [Required]
+        public long UserId { get; set; }
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }
     }
 }

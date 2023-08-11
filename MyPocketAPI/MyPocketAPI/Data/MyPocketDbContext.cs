@@ -15,15 +15,18 @@ namespace MyPocketAPI.Data
         }
 
         public DbSet<User> Users { get; set; } = default!;
-        public DbSet<UserPassword> UsersPassword { get; set; }
+        public DbSet<UserPassword> UserPasswords { get; set; }
+        public DbSet<Pocket> Pocket { get; set; }
+        public DbSet<PocketDetail> PocketDetail { get; set; }
+        public DbSet<Month> Month { get; set; }
+        public DbSet<MonthDetail> MonthDetail { get; set; }
+        public DbSet<Movement> Movements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<User>().ToTable(nameof(User));
-            //modelBuilder.Entity<UserPassword>().ToTable(nameof(UserPassword));
-            modelBuilder.Entity<User>()
-            .HasMany(u => u.Passwords)
-            .WithOne(up => up.User)
-            .HasForeignKey(up => up.IdUser);
+            modelBuilder.Entity<User>().ToTable(nameof(User));
+            modelBuilder.Entity<UserPassword>().ToTable(nameof(UserPassword));
+            modelBuilder.Entity<Movement>().ToTable(nameof(Movement));
 
             base.OnModelCreating(modelBuilder);
         }

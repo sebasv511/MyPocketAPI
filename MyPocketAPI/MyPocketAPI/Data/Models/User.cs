@@ -7,7 +7,7 @@ namespace MyPocketAPI.Data.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public long UserId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -15,7 +15,6 @@ namespace MyPocketAPI.Data.Models
         [Required]
         public string Email { get; set; }
         [Required]
-        public string Phone { get; set; }
-        public ICollection<UserPassword> Passwords { get; set; }
+        public string Phone { get; set; }        
     }
 }

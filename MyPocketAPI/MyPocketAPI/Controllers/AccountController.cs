@@ -18,9 +18,9 @@ namespace MyPocketAPI.Controllers
         }
 
         [HttpGet("Login")]
-        public async Task<IActionResult> Login(string email, string phone, string password)
+        public async Task<IActionResult> Login(string login, string password)
         {
-            var user = await _userService.GetUserAsync(email, phone, password);
+            var user = await _userService.GetUserAsync(login, password);
 
             if (user == null)
             {
@@ -31,7 +31,7 @@ namespace MyPocketAPI.Controllers
 
             var userDto = new UserDto
             {               
-                Id = user.Id,
+                Id = user.UserId,
                 Token = token
             };
 

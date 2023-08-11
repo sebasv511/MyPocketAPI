@@ -6,62 +6,61 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPocketAPI.Data;
-using MyPocketAPI.Data.Enumerations;
 using MyPocketAPI.Data.Models;
 
 namespace MyPocketAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class MovementsController : ControllerBase
     {
         private readonly MyPocketDbContext _context;
 
-        public UsersController(MyPocketDbContext context)
+        public MovementsController(MyPocketDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Movements
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Movement>>> GetMovements()
         {
-          if (_context.Users == null)
+          if (_context.Movements == null)
           {
               return NotFound();
           }
-            return await _context.Users.ToListAsync();
+            return await _context.Movements.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Movements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(long id)
+        public async Task<ActionResult<Movement>> GetMovement(long id)
         {
-          if (_context.Users == null)
+          if (_context.Movements == null)
           {
               return NotFound();
           }
-            var user = await _context.Users.FindAsync(id);
+            var movement = await _context.Movements.FindAsync(id);
 
-            if (user == null)
+            if (movement == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return movement;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Movements/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(long id, User user)
+        public async Task<IActionResult> PutMovement(long id, Movement movement)
         {
-            if (id != user.UserId)
+            if (id != movement.MovementId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(movement).State = EntityState.Modified;
 
             try
             {
@@ -69,7 +68,7 @@ namespace MyPocketAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!MovementExists(id))
                 {
                     return NotFound();
                 }
@@ -82,44 +81,44 @@ namespace MyPocketAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Movements
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Movement>> PostMovement(Movement movement)
         {
-          if (_context.Users == null)
+          if (_context.Movements == null)
           {
-              return Problem("Entity set 'MyPocketDbContext.User'  is null.");
+              return Problem("Entity set 'MyPocketDbContext.Movements'  is null.");
           }
-            _context.Users.Add(user);
+            _context.Movements.Add(movement);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetMovement", new { id = movement.MovementId }, movement);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Movements/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(long id)
+        public async Task<IActionResult> DeleteMovement(long id)
         {
-            if (_context.Users == null)
+            if (_context.Movements == null)
             {
                 return NotFound();
             }
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var movement = await _context.Movements.FindAsync(id);
+            if (movement == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Movements.Remove(movement);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(long id)
+        private bool MovementExists(long id)
         {
-            return (_context.Users?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Movements?.Any(e => e.MovementId == id)).GetValueOrDefault();
         }
     }
 }

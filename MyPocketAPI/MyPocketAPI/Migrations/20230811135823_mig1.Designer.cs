@@ -12,8 +12,8 @@ using MyPocketAPI.Data;
 namespace MyPocketAPI.Migrations
 {
     [DbContext(typeof(MyPocketDbContext))]
-    [Migration("20230810022011_mig2")]
-    partial class mig2
+    [Migration("20230811135823_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace MyPocketAPI.Migrations
 
             modelBuilder.Entity("MyPocketAPI.Data.Models.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("UserId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -49,21 +49,18 @@ namespace MyPocketAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("MyPocketAPI.Data.Models.UserPassword", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("UserPasswordId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("IdUser")
-                        .HasColumnType("bigint");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("UserPasswordId"));
 
                     b.Property<DateTime>("LastChangeDate")
                         .HasColumnType("datetime2");
@@ -72,9 +69,15 @@ namespace MyPocketAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
-                    b.HasIndex("IdUser");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("UserPasswordId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserPassword", (string)null);
                 });
@@ -83,7 +86,7 @@ namespace MyPocketAPI.Migrations
                 {
                     b.HasOne("MyPocketAPI.Data.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("IdUser")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -33,5 +33,16 @@ namespace MyPocketAPI.Services
             return null;
         }
 
+        public async Task<bool>? InsertUserAsync(User user)
+        {
+            await _context.Users.AddAsync(user);
+            if(_context.SaveChanges() != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

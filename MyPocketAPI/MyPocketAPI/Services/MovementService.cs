@@ -29,5 +29,51 @@ namespace MyPocketAPI.Services
             }
             return movements;
         }
+
+        public async Task<int> InsertMovement(MovementType type, string concept, decimal cost, DateTime payday, DateTime paydayLimit, MovementStatus status, long monthDetailId)
+        {
+            var newMov = _context.Movements.Add(new Movement
+            {
+                Type = type,
+                Concept = concept,
+                Cost = cost,
+                Payday = payday,
+                PaydayLimit = paydayLimit,
+                State = status,
+                MonthDetailId = monthDetailId
+            });
+
+            return await _context.SaveChangesAsync();       
+        }
+
+        public async Task<Movement?> GetMovementById(long id)
+        {
+            var movimiento = await _context.Movements.FirstOrDefaultAsync(m => m.MovementId == id);
+            return movimiento;
+        }
+
+        public async Task<Movement> UpdateMovement(Movement movement)
+        {
+            _context.Movements.Update(movement);
+            var idMovement = await _context.SaveChangesAsync();
+
+            return await _context.Movements.FirstAsync(m => m.MovementId == idMovement);
+        }
+        public async Task<bool> TransferMovement(long movementId, long periodId)
+        {
+            var movement = await GetMovementById(movementId);
+            if (movement != null)
+            {
+                movement.MonthDetailId = periodId;
+                _context.Movements.Attach(movement).Property(m=> m.MonthDetailId).IsModified = true;
+                if (await _context.SaveChangesAsync() > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }

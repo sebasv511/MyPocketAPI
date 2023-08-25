@@ -32,6 +32,10 @@ namespace MyPocketAPI.Controllers
             var userDto = new UserDto
             {               
                 Id = user.UserId,
+                Name = user.Name,
+                Surname = user.Surname,
+                Email = user.Email,
+                Phone= user.Phone,
                 Token = token
             };
 
